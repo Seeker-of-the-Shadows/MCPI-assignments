@@ -32,10 +32,6 @@ void LedOff(uint32_t pin) {
 	LED_GPIO->BSRR = BV(pin+16);
 }
 
-void LedBlink(uint32_t pin, uint32_t delay) {
-	LedOn(pin);
-	DelayMs(delay);
-	LedOff(pin);
-	DelayMs(delay);
-}
+
+
 

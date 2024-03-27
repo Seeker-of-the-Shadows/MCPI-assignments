@@ -33,34 +33,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := BBBB
+BUILD_ARTIFACT_NAME := Day03_2
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-BBBB.elf \
+Day03_2.elf \
 
 MAP_FILES += \
-BBBB.map \
+Day03_2.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-BBBB.list \
+Day03_2.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: BBBB.elf secondary-outputs
+main-build: Day03_2.elf secondary-outputs
 
 # Tool invocations
-BBBB.elf BBBB.map: $(OBJS) $(USER_OBJS) /home/superuser/STM32CubeIDE/workspace_1.15.0/BBBB/STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "BBBB.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/superuser/STM32CubeIDE/workspace_1.15.0/BBBB/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BBBB.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Day03_2.elf Day03_2.map: $(OBJS) $(USER_OBJS) /home/superuser/STM32CubeIDE/workspace_1.15.0/BBBB/STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Day03_2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/superuser/STM32CubeIDE/workspace_1.15.0/BBBB/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Day03_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -69,14 +69,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-BBBB.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "BBBB.list"
+Day03_2.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Day03_2.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) BBBB.elf BBBB.list BBBB.map default.size.stdout
+	-$(RM) Day03_2.elf Day03_2.list Day03_2.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

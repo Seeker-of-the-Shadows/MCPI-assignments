@@ -21,7 +21,7 @@
 void LedInit(uint32_t pin);
 void LedOn(uint32_t pin);
 void LedOff(uint32_t pin);
-void LedBlink(uint32_t pin, uint32_t delay);
+//void LedBlink(uint32_t pin, uint32_t delay);
 
 #endif /* LED_H_ */
 

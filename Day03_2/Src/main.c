@@ -40,10 +40,17 @@ int main(void)
 	LedInit(LED_BLUE);
 	while(1){
 
-			LedBlink(LED_BLUE, 500);
-			LedBlink(LED_RED, 500);
-			LedBlink(LED_ORANGE, 500);
-			LedBlink(LED_GREEN, 500);
+			LedOn(LED_BLUE );
+			LedOn(LED_RED );
+			LedOn(LED_ORANGE);
+			LedOn(LED_GREEN);
+			DelayMs(500);
+
+			LedOff(LED_BLUE );
+			LedOff(LED_RED );
+			LedOff(LED_ORANGE);
+			LedOff(LED_GREEN);
+			DelayMs(500);
 
 
 
