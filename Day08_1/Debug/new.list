@@ -39,17 +39,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_macro  000195e0  00000000  00000000  00005637  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00002ebf  00000000  00000000  0001ec17  2**0
+ 18 .debug_line   000024b6  00000000  00000000  0001ec17  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    0008be45  00000000  00000000  00021ad6  2**0
+ 19 .debug_str    0008be47  00000000  00000000  000210cd  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  000ad91b  2**0
+ 20 .comment      00000043  00000000  00000000  000acf14  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00000b94  00000000  00000000  000ad960  2**2
+ 21 .debug_frame  00000b94  00000000  00000000  000acf58  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_loclists 0000001f  00000000  00000000  000ae4f4  2**0
+ 22 .debug_loclists 0000001f  00000000  00000000  000adaec  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 23 .debug_line_str 0000005e  00000000  00000000  000ae513  2**0
+ 23 .debug_line_str 00000060  00000000  00000000  000adb0b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1085,18 +1085,18 @@ int main(void)
  8000870:	f44f 71fa 	mov.w	r1, #500	@ 0x1f4
  8000874:	200c      	movs	r0, #12
  8000876:	f7ff ffab 	bl	80007d0 <LedBlink>
-							UartPuts("\r Give a string ");
+							UartPuts("\r Give a string \n");
  800087a:	4813      	ldr	r0, [pc, #76]	@ (80008c8 <main+0xd4>)
  800087c:	f000 f92c 	bl	8000ad8 <UartPuts>
 							UartGets(str);
  8000880:	1d3b      	adds	r3, r7, #4
  8000882:	4618      	mov	r0, r3
  8000884:	f000 f944 	bl	8000b10 <UartGets>
-							EEPROM_Write(0x0020, (uint8_t*)str, 16);
+							EEPROM_Write(0x0000, (uint8_t*)str, 16);
  8000888:	1d3b      	adds	r3, r7, #4
  800088a:	2210      	movs	r2, #16
  800088c:	4619      	mov	r1, r3
- 800088e:	2020      	movs	r0, #32
+ 800088e:	2000      	movs	r0, #0
  8000890:	f7ff fd07 	bl	80002a2 <EEPROM_Write>
 							break;
  8000894:	e00f      	b.n	80008b6 <main+0xc2>
@@ -1106,11 +1106,11 @@ int main(void)
  8000896:	f44f 71fa 	mov.w	r1, #500	@ 0x1f4
  800089a:	200f      	movs	r0, #15
  800089c:	f7ff ff98 	bl	80007d0 <LedBlink>
-							EEPROM_Read(0x0020, (uint8_t*)str,32);
+							EEPROM_Read(0x0000, (uint8_t*)str,32);
  80008a0:	1d3b      	adds	r3, r7, #4
  80008a2:	2220      	movs	r2, #32
  80008a4:	4619      	mov	r1, r3
- 80008a6:	2020      	movs	r0, #32
+ 80008a6:	2000      	movs	r0, #0
  80008a8:	f7ff fd2d 	bl	8000306 <EEPROM_Read>
 							UartPuts(str);
  80008ac:	1d3b      	adds	r3, r7, #4
@@ -1179,7 +1179,7 @@ void *_sbrk(ptrdiff_t incr)
  8000902:	220c      	movs	r2, #12
  8000904:	601a      	str	r2, [r3, #0]
     return (void *)-1;
- 8000906:	f04f 33ff 	mov.w	r3, #4294967295
+ 8000906:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
  800090a:	e009      	b.n	8000920 <_sbrk+0x54>
   }
 
@@ -1848,7 +1848,7 @@ Infinite_Loop:
  8000d0a:	f000 fc2f 	bl	800156c <_sbrk_r>
  8000d0e:	1c43      	adds	r3, r0, #1
  8000d10:	d103      	bne.n	8000d1a <sbrk_aligned+0x26>
- 8000d12:	f04f 34ff 	mov.w	r4, #4294967295
+ 8000d12:	f04f 34ff 	mov.w	r4, #4294967295	@ 0xffffffff
  8000d16:	4620      	mov	r0, r4
  8000d18:	bd70      	pop	{r4, r5, r6, pc}
  8000d1a:	1cc4      	adds	r4, r0, #3
@@ -1991,7 +1991,7 @@ Infinite_Loop:
  8000e52:	1c4b      	adds	r3, r1, #1
  8000e54:	4614      	mov	r4, r2
  8000e56:	d103      	bne.n	8000e60 <_sungetc_r+0x10>
- 8000e58:	f04f 35ff 	mov.w	r5, #4294967295
+ 8000e58:	f04f 35ff 	mov.w	r5, #4294967295	@ 0xffffffff
  8000e5c:	4628      	mov	r0, r5
  8000e5e:	bd38      	pop	{r3, r4, r5, pc}
  8000e60:	8993      	ldrh	r3, [r2, #12]
@@ -2063,7 +2063,7 @@ Infinite_Loop:
  8000ef2:	89a3      	ldrh	r3, [r4, #12]
  8000ef4:	f043 0320 	orr.w	r3, r3, #32
  8000ef8:	81a3      	strh	r3, [r4, #12]
- 8000efa:	f04f 30ff 	mov.w	r0, #4294967295
+ 8000efa:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
  8000efe:	e7f3      	b.n	8000ee8 <__ssrefill_r+0x22>
 
 08000f00 <__ssvfiscanf_r>:
@@ -2233,7 +2233,7 @@ Infinite_Loop:
  80010b0:	9844      	ldr	r0, [sp, #272]	@ 0x110
  80010b2:	2800      	cmp	r0, #0
  80010b4:	f040 808b 	bne.w	80011ce <__ssvfiscanf_r+0x2ce>
- 80010b8:	f04f 30ff 	mov.w	r0, #4294967295
+ 80010b8:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
  80010bc:	e08b      	b.n	80011d6 <__ssvfiscanf_r+0x2d6>
  80010be:	9a41      	ldr	r2, [sp, #260]	@ 0x104
  80010c0:	f042 0220 	orr.w	r2, r2, #32
@@ -2376,7 +2376,7 @@ Infinite_Loop:
  80011f6:	698a      	ldr	r2, [r1, #24]
  80011f8:	2a00      	cmp	r2, #0
  80011fa:	bf14      	ite	ne
- 80011fc:	f04f 32ff 	movne.w	r2, #4294967295
+ 80011fc:	f04f 32ff 	movne.w	r2, #4294967295	@ 0xffffffff
  8001200:	2201      	moveq	r2, #1
  8001202:	608a      	str	r2, [r1, #8]
  8001204:	6822      	ldr	r2, [r4, #0]
@@ -2554,7 +2554,7 @@ Infinite_Loop:
  800139c:	f1b9 0f00 	cmp.w	r9, #0
  80013a0:	d003      	beq.n	80013aa <_scanf_i+0x10e>
  80013a2:	3301      	adds	r3, #1
- 80013a4:	f109 39ff 	add.w	r9, r9, #4294967295
+ 80013a4:	f109 39ff 	add.w	r9, r9, #4294967295	@ 0xffffffff
  80013a8:	60a3      	str	r3, [r4, #8]
  80013aa:	6873      	ldr	r3, [r6, #4]
  80013ac:	3b01      	subs	r3, #1
@@ -2599,7 +2599,7 @@ Infinite_Loop:
  800140c:	4632      	mov	r2, r6
  800140e:	4650      	mov	r0, sl
  8001410:	4798      	blx	r3
- 8001412:	f105 39ff 	add.w	r9, r5, #4294967295
+ 8001412:	f105 39ff 	add.w	r9, r5, #4294967295	@ 0xffffffff
  8001416:	464d      	mov	r5, r9
  8001418:	42bd      	cmp	r5, r7
  800141a:	d028      	beq.n	800146e <_scanf_i+0x1d2>
@@ -2711,7 +2711,7 @@ Infinite_Loop:
  8001506:	f44f 6180 	mov.w	r1, #1024	@ 0x400
  800150a:	f7ff fc15 	bl	8000d38 <_malloc_r>
  800150e:	b918      	cbnz	r0, 8001518 <__submore+0x22>
- 8001510:	f04f 30ff 	mov.w	r0, #4294967295
+ 8001510:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
  8001514:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
  8001518:	f44f 6380 	mov.w	r3, #1024	@ 0x400
  800151c:	63a3      	str	r3, [r4, #56]	@ 0x38
@@ -2762,7 +2762,7 @@ Infinite_Loop:
 0800158c <memcpy>:
  800158c:	440a      	add	r2, r1
  800158e:	4291      	cmp	r1, r2
- 8001590:	f100 33ff 	add.w	r3, r0, #4294967295
+ 8001590:	f100 33ff 	add.w	r3, r0, #4294967295	@ 0xffffffff
  8001594:	d100      	bne.n	8001598 <memcpy+0xc>
  8001596:	4770      	bx	lr
  8001598:	b510      	push	{r4, lr}
@@ -2847,7 +2847,7 @@ Infinite_Loop:
  8001654:	2310      	movs	r3, #16
  8001656:	3502      	adds	r5, #2
  8001658:	f106 4c00 	add.w	ip, r6, #2147483648	@ 0x80000000
- 800165c:	f10c 3cff 	add.w	ip, ip, #4294967295
+ 800165c:	f10c 3cff 	add.w	ip, ip, #4294967295	@ 0xffffffff
  8001660:	2200      	movs	r2, #0
  8001662:	fbbc f9f3 	udiv	r9, ip, r3
  8001666:	4610      	mov	r0, r2
@@ -2891,7 +2891,7 @@ Infinite_Loop:
  80016be:	d804      	bhi.n	80016ca <_strtol_l.constprop.0+0xc6>
  80016c0:	3c57      	subs	r4, #87	@ 0x57
  80016c2:	e7d8      	b.n	8001676 <_strtol_l.constprop.0+0x72>
- 80016c4:	f04f 32ff 	mov.w	r2, #4294967295
+ 80016c4:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
  80016c8:	e7e1      	b.n	800168e <_strtol_l.constprop.0+0x8a>
  80016ca:	1c53      	adds	r3, r2, #1
  80016cc:	d108      	bne.n	80016e0 <_strtol_l.constprop.0+0xdc>
@@ -2941,7 +2941,7 @@ Infinite_Loop:
  8001732:	786c      	ldrb	r4, [r5, #1]
  8001734:	2310      	movs	r3, #16
  8001736:	3502      	adds	r5, #2
- 8001738:	f04f 38ff 	mov.w	r8, #4294967295
+ 8001738:	f04f 38ff 	mov.w	r8, #4294967295	@ 0xffffffff
  800173c:	2600      	movs	r6, #0
  800173e:	fbb8 f8f3 	udiv	r8, r8, r3
  8001742:	fb03 f908 	mul.w	r9, r3, r8
@@ -2953,7 +2953,7 @@ Infinite_Loop:
  8001756:	4664      	mov	r4, ip
  8001758:	42a3      	cmp	r3, r4
  800175a:	dd2a      	ble.n	80017b2 <_strtoul_l.constprop.0+0xb6>
- 800175c:	f1b6 3fff 	cmp.w	r6, #4294967295
+ 800175c:	f1b6 3fff 	cmp.w	r6, #4294967295	@ 0xffffffff
  8001760:	d007      	beq.n	8001772 <_strtoul_l.constprop.0+0x76>
  8001762:	4580      	cmp	r8, r0
  8001764:	d322      	bcc.n	80017ac <_strtoul_l.constprop.0+0xb0>
@@ -2986,7 +2986,7 @@ Infinite_Loop:
  80017a6:	d804      	bhi.n	80017b2 <_strtoul_l.constprop.0+0xb6>
  80017a8:	3c57      	subs	r4, #87	@ 0x57
  80017aa:	e7d5      	b.n	8001758 <_strtoul_l.constprop.0+0x5c>
- 80017ac:	f04f 36ff 	mov.w	r6, #4294967295
+ 80017ac:	f04f 36ff 	mov.w	r6, #4294967295	@ 0xffffffff
  80017b0:	e7df      	b.n	8001772 <_strtoul_l.constprop.0+0x76>
  80017b2:	1c73      	adds	r3, r6, #1
  80017b4:	d106      	bne.n	80017c4 <_strtoul_l.constprop.0+0xc8>
