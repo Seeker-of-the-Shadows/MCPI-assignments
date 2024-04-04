@@ -176,68 +176,6 @@ Discarded input sections
  .debug_macro   0x00000000       0x11 ./Src/main.o
  .debug_macro   0x00000000    0x15e3c ./Src/main.o
  .debug_macro   0x00000000       0x10 ./Src/main.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .group         0x00000000        0xc ./Src/rtc.o
- .text          0x00000000        0x0 ./Src/rtc.o
- .data          0x00000000        0x0 ./Src/rtc.o
- .bss           0x00000000        0x0 ./Src/rtc.o
- .text.Bin2Bcd  0x00000000       0x6c ./Src/rtc.o
- .text.Bcd2Bin  0x00000000       0x48 ./Src/rtc.o
- .text.RTC_Init
-                0x00000000       0xbc ./Src/rtc.o
- .text.RTC_SetDate
-                0x00000000       0x7c ./Src/rtc.o
- .text.RTC_SetTime
-                0x00000000       0x6c ./Src/rtc.o
- .text.RTC_GetDate
-                0x00000000       0x8c ./Src/rtc.o
- .text.RTC_GetTime
-                0x00000000       0x74 ./Src/rtc.o
- .debug_info    0x00000000      0x72c ./Src/rtc.o
- .debug_abbrev  0x00000000      0x154 ./Src/rtc.o
- .debug_aranges
-                0x00000000       0x50 ./Src/rtc.o
- .debug_rnglists
-                0x00000000       0x39 ./Src/rtc.o
- .debug_macro   0x00000000       0xd7 ./Src/rtc.o
- .debug_macro   0x00000000      0xab4 ./Src/rtc.o
- .debug_macro   0x00000000       0x2e ./Src/rtc.o
- .debug_macro   0x00000000       0x2f ./Src/rtc.o
- .debug_macro   0x00000000       0x22 ./Src/rtc.o
- .debug_macro   0x00000000       0x8e ./Src/rtc.o
- .debug_macro   0x00000000       0x51 ./Src/rtc.o
- .debug_macro   0x00000000      0x103 ./Src/rtc.o
- .debug_macro   0x00000000       0x6a ./Src/rtc.o
- .debug_macro   0x00000000      0x1df ./Src/rtc.o
- .debug_macro   0x00000000       0x1c ./Src/rtc.o
- .debug_macro   0x00000000       0x22 ./Src/rtc.o
- .debug_macro   0x00000000       0xd9 ./Src/rtc.o
- .debug_macro   0x00000000     0x102d ./Src/rtc.o
- .debug_macro   0x00000000      0x11f ./Src/rtc.o
- .debug_macro   0x00000000       0x11 ./Src/rtc.o
- .debug_macro   0x00000000    0x15e3c ./Src/rtc.o
- .debug_macro   0x00000000       0x4a ./Src/rtc.o
- .debug_line    0x00000000      0x5cd ./Src/rtc.o
- .debug_str     0x00000000    0x87de5 ./Src/rtc.o
- .comment       0x00000000       0x44 ./Src/rtc.o
- .debug_frame   0x00000000      0x114 ./Src/rtc.o
- .ARM.attributes
-                0x00000000       0x2e ./Src/rtc.o
  .group         0x00000000        0xc ./Src/syscalls.o
  .group         0x00000000        0xc ./Src/syscalls.o
  .group         0x00000000        0xc ./Src/syscalls.o
@@ -769,7 +707,6 @@ LOAD /opt/st/stm32cubeide_1.15.0/plugins/com.st.stm32cube.ide.mcu.externaltools.
 LOAD ./Src/itm.o
 LOAD ./Src/led.o
 LOAD ./Src/main.o
-LOAD ./Src/rtc.o
 LOAD ./Src/syscalls.o
 LOAD ./Src/sysmem.o
 LOAD ./Src/system_stm32f4xx.o

@@ -391,14 +391,14 @@ void TimerInit(void) {
  80003a8:	b480      	push	{r7}
  80003aa:	af00      	add	r7, sp, #0
 	// enable timer clock
-	RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
+	RCC->APB1ENR |= RCC_APB1ENR_TIM7EN;
  80003ac:	4b06      	ldr	r3, [pc, #24]	@ (80003c8 <TimerInit+0x20>)
  80003ae:	6c1b      	ldr	r3, [r3, #64]	@ 0x40
  80003b0:	4a05      	ldr	r2, [pc, #20]	@ (80003c8 <TimerInit+0x20>)
- 80003b2:	f043 0310 	orr.w	r3, r3, #16
+ 80003b2:	f043 0320 	orr.w	r3, r3, #32
  80003b6:	6413      	str	r3, [r2, #64]	@ 0x40
 	// set prescalar
-	TIM6->PSC = TIM_PR-1;
+	TIM7->PSC = TIM_PR-1;
  80003b8:	4b04      	ldr	r3, [pc, #16]	@ (80003cc <TimerInit+0x24>)
  80003ba:	f643 627f 	movw	r2, #15999	@ 0x3e7f
  80003be:	629a      	str	r2, [r3, #40]	@ 0x28
@@ -408,7 +408,7 @@ void TimerInit(void) {
  80003c4:	bc80      	pop	{r7}
  80003c6:	4770      	bx	lr
  80003c8:	40023800 	.word	0x40023800
- 80003cc:	40001000 	.word	0x40001000
+ 80003cc:	40001400 	.word	0x40001400
 
 080003d0 <TimerDelayMs>:
 
@@ -426,25 +426,25 @@ void TimerDelayMs(uint32_t ms) {
  80003e4:	fba2 2303 	umull	r2, r3, r2, r3
  80003e8:	0a9b      	lsrs	r3, r3, #10
  80003ea:	81fb      	strh	r3, [r7, #14]
-	TIM6->ARR = cnt - 1;
+	TIM7->ARR = cnt - 1;
  80003ec:	89fb      	ldrh	r3, [r7, #14]
  80003ee:	1e5a      	subs	r2, r3, #1
  80003f0:	4b12      	ldr	r3, [pc, #72]	@ (800043c <TimerDelayMs+0x6c>)
  80003f2:	62da      	str	r2, [r3, #44]	@ 0x2c
 	// start count from 0
-	TIM6->CNT = 0;
+	TIM7->CNT = 0;
  80003f4:	4b11      	ldr	r3, [pc, #68]	@ (800043c <TimerDelayMs+0x6c>)
  80003f6:	2200      	movs	r2, #0
  80003f8:	625a      	str	r2, [r3, #36]	@ 0x24
 	// start timer counter
-	TIM6->CR1 |= TIM_CR1_CEN;
+	TIM7->CR1 |= TIM_CR1_CEN;
  80003fa:	4b10      	ldr	r3, [pc, #64]	@ (800043c <TimerDelayMs+0x6c>)
  80003fc:	681b      	ldr	r3, [r3, #0]
  80003fe:	4a0f      	ldr	r2, [pc, #60]	@ (800043c <TimerDelayMs+0x6c>)
  8000400:	f043 0301 	orr.w	r3, r3, #1
  8000404:	6013      	str	r3, [r2, #0]
 	// wait for update interrupt flag
-	while(! (TIM6->SR & TIM_SR_UIF))
+	while(! (TIM7->SR & TIM_SR_UIF))
  8000406:	bf00      	nop
  8000408:	4b0c      	ldr	r3, [pc, #48]	@ (800043c <TimerDelayMs+0x6c>)
  800040a:	691b      	ldr	r3, [r3, #16]
@@ -453,14 +453,14 @@ void TimerDelayMs(uint32_t ms) {
  8000412:	d0f9      	beq.n	8000408 <TimerDelayMs+0x38>
 		;
 	// clear the update interrupt flag
-	TIM6->SR &= ~TIM_SR_UIF;
+	TIM7->SR &= ~TIM_SR_UIF;
  8000414:	4b09      	ldr	r3, [pc, #36]	@ (800043c <TimerDelayMs+0x6c>)
  8000416:	691b      	ldr	r3, [r3, #16]
  8000418:	4a08      	ldr	r2, [pc, #32]	@ (800043c <TimerDelayMs+0x6c>)
  800041a:	f023 0301 	bic.w	r3, r3, #1
  800041e:	6113      	str	r3, [r2, #16]
 	// stop timer counter
-	TIM6->CR1 &= ~TIM_CR1_CEN;
+	TIM7->CR1 &= ~TIM_CR1_CEN;
  8000420:	4b06      	ldr	r3, [pc, #24]	@ (800043c <TimerDelayMs+0x6c>)
  8000422:	681b      	ldr	r3, [r3, #0]
  8000424:	4a05      	ldr	r2, [pc, #20]	@ (800043c <TimerDelayMs+0x6c>)
@@ -474,7 +474,7 @@ void TimerDelayMs(uint32_t ms) {
  8000434:	4770      	bx	lr
  8000436:	bf00      	nop
  8000438:	10624dd3 	.word	0x10624dd3
- 800043c:	40001000 	.word	0x40001000
+ 800043c:	40001400 	.word	0x40001400
 
 08000440 <Reset_Handler>:
 
