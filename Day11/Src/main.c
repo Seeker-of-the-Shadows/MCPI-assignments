@@ -49,8 +49,7 @@ int main(void)
         			DelayMs(50);
         			exti0_flag = 0;
         		}
-            TIM8->CCR1 = duty;
-            DelayMs(50);
+
         }
         //for(duty=100; duty>=1; duty--) {
          //   TIM8->CCR1 = duty;
