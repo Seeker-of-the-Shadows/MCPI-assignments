@@ -41,15 +41,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_line   00002106  00000000  00000000  0001ea88  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    0008c412  00000000  00000000  00020b8e  2**0
+ 19 .debug_str    0008c40e  00000000  00000000  00020b8e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  000acfa0  2**0
+ 20 .comment      00000043  00000000  00000000  000acf9c  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00000900  00000000  00000000  000acfe4  2**2
+ 21 .debug_frame  00000900  00000000  00000000  000acfe0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_loclists 0000001f  00000000  00000000  000ad8e4  2**0
+ 22 .debug_loclists 0000001f  00000000  00000000  000ad8e0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 23 .debug_line_str 0000005f  00000000  00000000  000ad903  2**0
+ 23 .debug_line_str 0000005f  00000000  00000000  000ad8ff  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1092,14 +1092,14 @@ void TimerInit(uint32_t ms) {
  8000840:	af00      	add	r7, sp, #0
  8000842:	6078      	str	r0, [r7, #4]
 	// enable timer clock
-	RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
+	RCC->APB1ENR |= RCC_APB1ENR_TIM7EN;
  8000844:	4b16      	ldr	r3, [pc, #88]	@ (80008a0 <TimerInit+0x64>)
  8000846:	6c1b      	ldr	r3, [r3, #64]	@ 0x40
  8000848:	4a15      	ldr	r2, [pc, #84]	@ (80008a0 <TimerInit+0x64>)
- 800084a:	f043 0310 	orr.w	r3, r3, #16
+ 800084a:	f043 0320 	orr.w	r3, r3, #32
  800084e:	6413      	str	r3, [r2, #64]	@ 0x40
 	// set prescalar
-	TIM6->PSC = TIM_PR-1;
+	TIM7->PSC = TIM_PR-1;
  8000850:	4b14      	ldr	r3, [pc, #80]	@ (80008a4 <TimerInit+0x68>)
  8000852:	f643 627f 	movw	r2, #15999	@ 0x3e7f
  8000856:	629a      	str	r2, [r3, #40]	@ 0x28
@@ -1112,29 +1112,29 @@ void TimerInit(uint32_t ms) {
  8000864:	fba2 2303 	umull	r2, r3, r2, r3
  8000868:	0a9b      	lsrs	r3, r3, #10
  800086a:	81fb      	strh	r3, [r7, #14]
-	TIM6->ARR = cnt - 1;
+	TIM7->ARR = cnt - 1;
  800086c:	89fb      	ldrh	r3, [r7, #14]
  800086e:	1e5a      	subs	r2, r3, #1
  8000870:	4b0c      	ldr	r3, [pc, #48]	@ (80008a4 <TimerInit+0x68>)
  8000872:	62da      	str	r2, [r3, #44]	@ 0x2c
 	// start count from 0
-	TIM6->CNT = 0;
+	TIM7->CNT = 0;
  8000874:	4b0b      	ldr	r3, [pc, #44]	@ (80008a4 <TimerInit+0x68>)
  8000876:	2200      	movs	r2, #0
  8000878:	625a      	str	r2, [r3, #36]	@ 0x24
 	// enable UI interrupt in timer
-	TIM6->DIER |= TIM_DIER_UIE;
+	TIM7->DIER |= TIM_DIER_UIE;
  800087a:	4b0a      	ldr	r3, [pc, #40]	@ (80008a4 <TimerInit+0x68>)
  800087c:	68db      	ldr	r3, [r3, #12]
  800087e:	4a09      	ldr	r2, [pc, #36]	@ (80008a4 <TimerInit+0x68>)
  8000880:	f043 0301 	orr.w	r3, r3, #1
  8000884:	60d3      	str	r3, [r2, #12]
 	// enable interrupt in NVIC
-	NVIC_EnableIRQ(TIM6_DAC_IRQn);
- 8000886:	2036      	movs	r0, #54	@ 0x36
+	NVIC_EnableIRQ(TIM7_IRQn);
+ 8000886:	2037      	movs	r0, #55	@ 0x37
  8000888:	f7ff ffbc 	bl	8000804 <__NVIC_EnableIRQ>
 	// start timer counter
-	TIM6->CR1 |= TIM_CR1_CEN;
+	TIM7->CR1 |= TIM_CR1_CEN;
  800088c:	4b05      	ldr	r3, [pc, #20]	@ (80008a4 <TimerInit+0x68>)
  800088e:	681b      	ldr	r3, [r3, #0]
  8000890:	4a04      	ldr	r2, [pc, #16]	@ (80008a4 <TimerInit+0x68>)
@@ -1146,59 +1146,59 @@ void TimerInit(uint32_t ms) {
  800089c:	46bd      	mov	sp, r7
  800089e:	bd80      	pop	{r7, pc}
  80008a0:	40023800 	.word	0x40023800
- 80008a4:	40001000 	.word	0x40001000
+ 80008a4:	40001400 	.word	0x40001400
  80008a8:	10624dd3 	.word	0x10624dd3
 
-080008ac <TIM6_DAC_IRQHandler>:
+080008ac <TIM7_IRQHandler>:
 
 // implement timer ISR
-void TIM6_DAC_IRQHandler(void)
+void TIM7_IRQHandler(void)
 {
  80008ac:	b580      	push	{r7, lr}
  80008ae:	af00      	add	r7, sp, #0
 	static int flag = 0;
 	// check if interrupt occurred
-	if(TIM6->SR & TIM_SR_UIF) {
- 80008b0:	4b14      	ldr	r3, [pc, #80]	@ (8000904 <TIM6_DAC_IRQHandler+0x58>)
+	if(TIM7->SR & TIM_SR_UIF) {
+ 80008b0:	4b14      	ldr	r3, [pc, #80]	@ (8000904 <TIM7_IRQHandler+0x58>)
  80008b2:	691b      	ldr	r3, [r3, #16]
  80008b4:	f003 0301 	and.w	r3, r3, #1
  80008b8:	2b00      	cmp	r3, #0
- 80008ba:	d020      	beq.n	80008fe <TIM6_DAC_IRQHandler+0x52>
+ 80008ba:	d020      	beq.n	80008fe <TIM7_IRQHandler+0x52>
 		// then clear (ack) the interrupt
-		TIM6->SR &= ~TIM_SR_UIF;
- 80008bc:	4b11      	ldr	r3, [pc, #68]	@ (8000904 <TIM6_DAC_IRQHandler+0x58>)
+		TIM7->SR &= ~TIM_SR_UIF;
+ 80008bc:	4b11      	ldr	r3, [pc, #68]	@ (8000904 <TIM7_IRQHandler+0x58>)
  80008be:	691b      	ldr	r3, [r3, #16]
- 80008c0:	4a10      	ldr	r2, [pc, #64]	@ (8000904 <TIM6_DAC_IRQHandler+0x58>)
+ 80008c0:	4a10      	ldr	r2, [pc, #64]	@ (8000904 <TIM7_IRQHandler+0x58>)
  80008c2:	f023 0301 	bic.w	r3, r3, #1
  80008c6:	6113      	str	r3, [r2, #16]
 		// toggle LED
 		if(flag == 0) {
- 80008c8:	4b0f      	ldr	r3, [pc, #60]	@ (8000908 <TIM6_DAC_IRQHandler+0x5c>)
+ 80008c8:	4b0f      	ldr	r3, [pc, #60]	@ (8000908 <TIM7_IRQHandler+0x5c>)
  80008ca:	681b      	ldr	r3, [r3, #0]
  80008cc:	2b00      	cmp	r3, #0
- 80008ce:	d113      	bne.n	80008f8 <TIM6_DAC_IRQHandler+0x4c>
-			//LedOn(LED_BLUE);
+ 80008ce:	d113      	bne.n	80008f8 <TIM7_IRQHandler+0x4c>
+
 
 			c++;
- 80008d0:	4b0e      	ldr	r3, [pc, #56]	@ (800090c <TIM6_DAC_IRQHandler+0x60>)
+ 80008d0:	4b0e      	ldr	r3, [pc, #56]	@ (800090c <TIM7_IRQHandler+0x60>)
  80008d2:	681b      	ldr	r3, [r3, #0]
  80008d4:	3301      	adds	r3, #1
- 80008d6:	4a0d      	ldr	r2, [pc, #52]	@ (800090c <TIM6_DAC_IRQHandler+0x60>)
+ 80008d6:	4a0d      	ldr	r2, [pc, #52]	@ (800090c <TIM7_IRQHandler+0x60>)
  80008d8:	6013      	str	r3, [r2, #0]
 			sprintf(str1, "  %d",c);
- 80008da:	4b0c      	ldr	r3, [pc, #48]	@ (800090c <TIM6_DAC_IRQHandler+0x60>)
+ 80008da:	4b0c      	ldr	r3, [pc, #48]	@ (800090c <TIM7_IRQHandler+0x60>)
  80008dc:	681b      	ldr	r3, [r3, #0]
  80008de:	461a      	mov	r2, r3
- 80008e0:	490b      	ldr	r1, [pc, #44]	@ (8000910 <TIM6_DAC_IRQHandler+0x64>)
- 80008e2:	480c      	ldr	r0, [pc, #48]	@ (8000914 <TIM6_DAC_IRQHandler+0x68>)
+ 80008e0:	490b      	ldr	r1, [pc, #44]	@ (8000910 <TIM7_IRQHandler+0x64>)
+ 80008e2:	480c      	ldr	r0, [pc, #48]	@ (8000914 <TIM7_IRQHandler+0x68>)
  80008e4:	f000 f842 	bl	800096c <siprintf>
 			LcdPuts(LCD_LINE2, str1);
- 80008e8:	490a      	ldr	r1, [pc, #40]	@ (8000914 <TIM6_DAC_IRQHandler+0x68>)
+ 80008e8:	490a      	ldr	r1, [pc, #40]	@ (8000914 <TIM7_IRQHandler+0x68>)
  80008ea:	20c0      	movs	r0, #192	@ 0xc0
  80008ec:	f7ff fee2 	bl	80006b4 <LcdPuts>
 
 			flag = 1;
- 80008f0:	4b05      	ldr	r3, [pc, #20]	@ (8000908 <TIM6_DAC_IRQHandler+0x5c>)
+ 80008f0:	4b05      	ldr	r3, [pc, #20]	@ (8000908 <TIM7_IRQHandler+0x5c>)
  80008f2:	2201      	movs	r2, #1
  80008f4:	601a      	str	r2, [r3, #0]
 		} else {
@@ -1207,16 +1207,16 @@ void TIM6_DAC_IRQHandler(void)
 		}
 	}
 }
- 80008f6:	e002      	b.n	80008fe <TIM6_DAC_IRQHandler+0x52>
+ 80008f6:	e002      	b.n	80008fe <TIM7_IRQHandler+0x52>
 			flag = 0;
- 80008f8:	4b03      	ldr	r3, [pc, #12]	@ (8000908 <TIM6_DAC_IRQHandler+0x5c>)
+ 80008f8:	4b03      	ldr	r3, [pc, #12]	@ (8000908 <TIM7_IRQHandler+0x5c>)
  80008fa:	2200      	movs	r2, #0
  80008fc:	601a      	str	r2, [r3, #0]
 }
  80008fe:	bf00      	nop
  8000900:	bd80      	pop	{r7, pc}
  8000902:	bf00      	nop
- 8000904:	40001000 	.word	0x40001000
+ 8000904:	40001400 	.word	0x40001400
  8000908:	20000098 	.word	0x20000098
  800090c:	20000094 	.word	0x20000094
  8000910:	080012bc 	.word	0x080012bc

@@ -855,9 +855,9 @@ LOAD /opt/st/stm32cubeide_1.15.0/plugins/com.st.stm32cube.ide.mcu.externaltools.
  .text.TimerInit
                 0x0800083c       0x70 ./Src/timer.o
                 0x0800083c                TimerInit
- .text.TIM6_DAC_IRQHandler
+ .text.TIM7_IRQHandler
                 0x080008ac       0x6c ./Src/timer.o
-                0x080008ac                TIM6_DAC_IRQHandler
+                0x080008ac                TIM7_IRQHandler
  .text.Reset_Handler
                 0x08000918       0x50 ./Startup/startup_stm32f407vgtx.o
                 0x08000918                Reset_Handler
@@ -894,6 +894,7 @@ LOAD /opt/st/stm32cubeide_1.15.0/plugins/com.st.stm32cube.ide.mcu.externaltools.
                 0x08000968                CAN2_SCE_IRQHandler
                 0x08000968                DMA2_Stream2_IRQHandler
                 0x08000968                SPI1_IRQHandler
+                0x08000968                TIM6_DAC_IRQHandler
                 0x08000968                TIM1_BRK_TIM9_IRQHandler
                 0x08000968                DCMI_IRQHandler
                 0x08000968                CAN2_RX0_IRQHandler
@@ -916,7 +917,6 @@ LOAD /opt/st/stm32cubeide_1.15.0/plugins/com.st.stm32cube.ide.mcu.externaltools.
                 0x08000968                EXTI15_10_IRQHandler
                 0x08000968                ADC_IRQHandler
                 0x08000968                DMA1_Stream7_IRQHandler
-                0x08000968                TIM7_IRQHandler
                 0x08000968                CAN2_TX_IRQHandler
                 0x08000968                TIM5_IRQHandler
                 0x08000968                DMA2_Stream7_IRQHandler
@@ -1347,7 +1347,7 @@ LOAD /opt/st/stm32cubeide_1.15.0/plugins/com.st.stm32cube.ide.mcu.externaltools.
  .debug_line    0x00001a74      0x617 ./Src/timer.o
  .debug_line    0x0000208b       0x7b ./Startup/startup_stm32f407vgtx.o
 
-.debug_str      0x00000000    0x8c412
+.debug_str      0x00000000    0x8c40e
  .debug_str     0x00000000    0x87c52 ./Src/i2c.o
                               0x87dd6 (size before relaxing)
  .debug_str     0x00087c52      0x175 ./Src/i2c_lcd.o
@@ -1358,9 +1358,9 @@ LOAD /opt/st/stm32cubeide_1.15.0/plugins/com.st.stm32cube.ide.mcu.externaltools.
                                0x609e (size before relaxing)
  .debug_str     0x0008bd40       0xee ./Src/system_stm32f4xx.o
                               0x87dbb (size before relaxing)
- .debug_str     0x0008be2e      0x5a5 ./Src/timer.o
-                              0x8be59 (size before relaxing)
- .debug_str     0x0008c3d3       0x3f ./Startup/startup_stm32f407vgtx.o
+ .debug_str     0x0008be2e      0x5a1 ./Src/timer.o
+                              0x8be55 (size before relaxing)
+ .debug_str     0x0008c3cf       0x3f ./Startup/startup_stm32f407vgtx.o
                                  0x7b (size before relaxing)
 
 .comment        0x00000000       0x43
